@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors')
+var cors = require('cors');
+var proxy = require('express-http-proxy');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+app.use('/proxy', proxy('http://vendorsinapi.7iron.in'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
